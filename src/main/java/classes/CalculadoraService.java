@@ -20,14 +20,11 @@ public class CalculadoraService {
 		return dividendo / divisor;
 	}
 
-	public String multiplicar(final double multiplicador) {
-		String result = null;
-		for(int i = 1; i <= 10; i++) {
-			Double resultado = i * multiplicador;
-			result = i + " x " + multiplicador + " = " + resultado.toString();
-		}
+	public String multiplicar(final int i,final double multiplicador) {
 		
-		return result;
+		Double resultado = i * multiplicador;
+		return  i + " x " + multiplicador + " = " + resultado.toString();
+		
 
 	}
 	
