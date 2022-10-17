@@ -45,12 +45,8 @@ public class TabuadaServlet extends HttpServlet {
 		String operacao = calculadoraService.getParametroOperacao(req, erros);
 			
 		if (erros.isEmpty()) {
-			
-			for(int i = 1; i <= 10; i++) {
-				Double resultado = calculadoraService.multiplicar(i, num1);
-				out.print(i + " x " + num1 + " = " + resultado.toString());
-				out.print("\n");
-			}
+			out.print(calculadoraService.multiplicar(num1));
+			out.print("\n");
 		} else {
 			out.print(erros);
 		}

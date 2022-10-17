@@ -20,8 +20,15 @@ public class CalculadoraService {
 		return dividendo / divisor;
 	}
 
-	public double multiplicar(final double multiplicando, final double multiplicador) {
-		return multiplicando * multiplicador;
+	public String multiplicar(final double multiplicador) {
+		String result = null;
+		for(int i = 1; i <= 10; i++) {
+			Double resultado = i * multiplicador;
+			result = i + " x " + multiplicador + " = " + resultado.toString();
+		}
+		
+		return result;
+
 	}
 	
 	public String getParametroOperacao(final HttpServletRequest req, final Map<String, String> erros) {
