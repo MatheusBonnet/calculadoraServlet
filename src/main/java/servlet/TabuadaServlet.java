@@ -2,8 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,46 +27,28 @@ public class TabuadaServlet extends HttpServlet {
 		processar(req, resp);
 	}
 
-	@Override
-	public final void doPost(final HttpServletRequest req, final HttpServletResponse resp)
-			throws ServletException, IOException {
-		processar(req, resp);
-	}
-
 	private void processar(final HttpServletRequest req, final HttpServletResponse resp)
 			throws ServletException, IOException {
 		PrintWriter out = resp.getWriter();
 		
-		Map<String, String> erros = new HashMap<String, String>();
-		
-		Double num1 = getParametroDouble(req, PARAMETRO_NUM_1, "Número 1", erros);
-		String operacao = calculadoraService.getParametroOperacao(req, erros);
-			
-		if (erros.isEmpty()) {
-			for(int i = 1; i <= 10;i++) {
-				out.print(calculadoraService.multiplicar(i,num1));
-				out.print("\n");
+		if(req.getParameter(PARAMETRO_NUM_1) == null) {
+			for(int i = 1; i <= 10; i++) {
+				out.print(calculadoraService.multiplicar(i));
 			}
 		} else {
-			out.print(erros);
+			if(req.getParameter(PARAMETRO_NUM_1).contains(";")) {
+				String[] list = req.getParameter(PARAMETRO_NUM_1).split(";");
+				for(String num : list) {
+					out.print(calculadoraService.multiplicar(Integer.parseInt(num)));
+				}
+				
+			}else {
+				Integer num = Integer.parseInt(req.getParameter(PARAMETRO_NUM_1));
+				out.print(calculadoraService.multiplicar(num));
+			}
+			
 		}
 		
-	}
-
-	private Double getParametroDouble(final HttpServletRequest req, final String nome, final String campo,
-			final Map<String, String> erros) {
-		String numStr = req.getParameter(nome);
-		if (numStr == null || numStr.isEmpty()) {
-			erros.put(campo, "Número requerido!");
-			return null;
-		}
-		Double num = null;
-		try {
-			num = Double.parseDouble(numStr);
-		} catch (NumberFormatException nfe) {
-			erros.put(campo, "Número inválido!");
-		}
-		return num;
 	}
 	
 
