@@ -36,15 +36,9 @@ public class TabuadaServlet extends HttpServlet {
 				out.print(calculadoraService.multiplicar(i));
 			}
 		} else {
-			if(req.getParameter(PARAMETRO_NUM_1).contains(";")) {
-				String[] list = req.getParameter(PARAMETRO_NUM_1).split(";");
-				for(String num : list) {
-					out.print(calculadoraService.multiplicar(Integer.parseInt(num)));
-				}
-				
-			}else {
-				Integer num = Integer.parseInt(req.getParameter(PARAMETRO_NUM_1));
-				out.print(calculadoraService.multiplicar(num));
+			String[] list = req.getParameter(PARAMETRO_NUM_1).split(";");
+			for(String num : list) {
+				out.print(calculadoraService.multiplicar(Integer.parseInt(num)));
 			}
 			
 		}
